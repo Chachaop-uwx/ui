@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Coin Quiz</title>
+<style>
+  body {
+    background-color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding-top: 50px;
+  }
+  .emoji {
+    font-size: 100px;
+  }
+  .question {
+    font-size: 24px;
+    margin: 20px 0;
+  }
+  .button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 18px;
+    margin: 10px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    border-radius: 10px;
+    transition: transform 0.1s;
+  }
+  .button:hover {
+    transform: scale(1.05);
+  }
+  .green { background-color: #28a745; }
+  .red { background-color: #dc3545; }
+  .result {
+    margin-top: 30px;
+  }
+  .result img {
+    max-width: 80%;
+    height: auto;
+    margin-top: 20px;
+  }
+  .result-text {
+    font-size: 22px;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="emoji">🦆</div>
+<div class="question">C'est quoi un coin coin ?</div>
+
+<button class="button green" onclick="showResult('green')">Le coin coin est le roi des animaux</button>
+<button class="button red" onclick="showResult('red')">Le coin coin est juste un animal</button>
+
+<div class="result" id="result"></div>
+
+<script>
+function showResult(choice) {
+  const resultDiv = document.getElementById('result');
+  if(choice === 'green') {
+    resultDiv.innerHTML = `
+      <img src="https://www.shutterstock.com/shutterstock/videos/3659409581/thumb/1.jpg?ip=x480" alt="Roi Coin Coin">
+      <div class="result-text">Bravo tu as le respect du roi coin coin 🦆</div>
+    `;
+  } else if(choice === 'red') {
+    resultDiv.innerHTML = `
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdw8kPVqDXJaosbvj6HiEwJIHuD630EBMBeA&s" alt="Canard effrayant">
+      <div class="result-text">Ce canard viendra dans ton sommeil 🦆😱</div>
+    `;
+  }
+}
+</script>
+
+</body>
+</html>
