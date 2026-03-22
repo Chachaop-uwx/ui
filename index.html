@@ -2,90 +2,102 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coin Coin Quiz</title>
+<title>Attrape le Coin Coin</title>
+
 <style>
   body {
-    background-color: white;
-    font-family: Arial, sans-serif;
     text-align: center;
-    padding-top: 50px;
+    font-family: Arial;
+    background: white;
   }
-  .emoji {
-    font-size: 100px;
-  }
-  .question {
-    font-size: 24px;
-    margin: 20px 0;
-  }
-  .buttons {
-    margin: 20px;
-  }
-  .button {
-    display: inline-block;
-    padding: 15px 25px;
-    font-size: 18px;
-    margin: 10px;
-    cursor: pointer;
-    border: none;
-    color: white;
-    border-radius: 10px;
-    transition: transform 0.1s;
-  }
-  .button:hover {
-    transform: scale(1.05);
-  }
-  .green { background-color: #28a745; }
-  .red { background-color: #dc3545; }
 
-  .result img {
-    max-width: 80%;
-    height: auto;
+  h1 {
     margin-top: 20px;
   }
-  .result-text {
-    font-size: 22px;
-    margin-top: 10px;
+
+  #game {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    border: 2px solid black;
+    overflow: hidden;
+  }
+
+  #duck {
+    position: absolute;
+    font-size: 50px;
+    cursor: pointer;
+  }
+
+  #score, #timer {
+    font-size: 20px;
+    margin: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
   }
 </style>
 </head>
+
 <body>
 
-<div class="emoji">🦆</div>
-<div class="question" id="question">C'est quoi un coin coin ?</div>
+<h1>🦆 Attrape le Coin Coin !</h1>
 
-<div class="buttons" id="buttons">
-  <button class="button green" onclick="showResult('green')">
-    Le coin coin est le roi des animaux
-  </button>
-  <button class="button red" onclick="showResult('red')">
-    Le coin coin est juste un animal
-  </button>
+<div id="score">Score : 0</div>
+<div id="timer">Temps : 10</div>
+
+<button onclick="startGame()">Démarrer</button>
+
+<div id="game">
+  <div id="duck">🦆</div>
 </div>
 
-<div class="result" id="result"></div>
-
 <script>
-function showResult(choice) {
-  const resultDiv = document.getElementById('result');
-  const buttonsDiv = document.getElementById('buttons');
-  const questionDiv = document.getElementById('question');
+let score = 0;
+let timeLeft = 10;
+let gameInterval;
+let moveInterval;
 
-  // Cache les boutons et la question
-  buttonsDiv.style.display = "none";
-  questionDiv.style.display = "none";
+const duck = document.getElementById("duck");
 
-  if(choice === 'green') {
-    resultDiv.innerHTML = `
-      <img src="https://www.shutterstock.com/shutterstock/videos/3659409581/thumb/1.jpg?ip=x480">
-      <div class="result-text">Bravo tu as le respect du roi coin coin 🦆</div>
-    `;
-  } else {
-    resultDiv.innerHTML = `
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdw8kPVqDXJaosbvj6HiEwJIHuD630EBMBeA&s">
-      <div class="result-text">Ce canard viendra dans ton sommeil 🦆😱</div>
-    `;
-  }
+function moveDuck() {
+  const x = Math.random() * 350;
+  const y = Math.random() * 350;
+
+  duck.style.left = x + "px";
+  duck.style.top = y + "px";
+}
+
+duck.onclick = function() {
+  score++;
+  document.getElementById("score").textContent = "Score : " + score;
+};
+
+function startGame() {
+  score = 0;
+  timeLeft = 10;
+
+  document.getElementById("score").textContent = "Score : 0";
+  document.getElementById("timer").textContent = "Temps : 10";
+
+  moveDuck();
+
+  moveInterval = setInterval(moveDuck, 700);
+
+  gameInterval = setInterval(() => {
+    timeLeft--;
+    document.getElementById("timer").textContent = "Temps : " + timeLeft;
+
+    if(timeLeft <= 0) {
+      clearInterval(gameInterval);
+      clearInterval(moveInterval);
+      alert("Fin du jeu ! Score : " + score);
+    }
+  }, 1000);
 }
 </script>
 
