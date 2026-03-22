@@ -18,6 +18,9 @@
     font-size: 24px;
     margin: 20px 0;
   }
+  .buttons {
+    margin: 20px;
+  }
   .button {
     display: inline-block;
     padding: 15px 25px;
@@ -34,9 +37,7 @@
   }
   .green { background-color: #28a745; }
   .red { background-color: #dc3545; }
-  .result {
-    margin-top: 30px;
-  }
+
   .result img {
     max-width: 80%;
     height: auto;
@@ -51,24 +52,37 @@
 <body>
 
 <div class="emoji">🦆</div>
-<div class="question">C'est quoi un coin coin ?</div>
+<div class="question" id="question">C'est quoi un coin coin ?</div>
 
-<button class="button green" onclick="showResult('green')">Le coin coin est le roi des animaux</button>
-<button class="button red" onclick="showResult('red')">Le coin coin est juste un animal</button>
+<div class="buttons" id="buttons">
+  <button class="button green" onclick="showResult('green')">
+    Le coin coin est le roi des animaux
+  </button>
+  <button class="button red" onclick="showResult('red')">
+    Le coin coin est juste un animal
+  </button>
+</div>
 
 <div class="result" id="result"></div>
 
 <script>
 function showResult(choice) {
   const resultDiv = document.getElementById('result');
+  const buttonsDiv = document.getElementById('buttons');
+  const questionDiv = document.getElementById('question');
+
+  // Cache les boutons et la question
+  buttonsDiv.style.display = "none";
+  questionDiv.style.display = "none";
+
   if(choice === 'green') {
     resultDiv.innerHTML = `
-      <img src="https://www.shutterstock.com/shutterstock/videos/3659409581/thumb/1.jpg?ip=x480" alt="Roi Coin Coin">
+      <img src="https://www.shutterstock.com/shutterstock/videos/3659409581/thumb/1.jpg?ip=x480">
       <div class="result-text">Bravo tu as le respect du roi coin coin 🦆</div>
     `;
-  } else if(choice === 'red') {
+  } else {
     resultDiv.innerHTML = `
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdw8kPVqDXJaosbvj6HiEwJIHuD630EBMBeA&s" alt="Canard effrayant">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdw8kPVqDXJaosbvj6HiEwJIHuD630EBMBeA&s">
       <div class="result-text">Ce canard viendra dans ton sommeil 🦆😱</div>
     `;
   }
