@@ -65,8 +65,13 @@ let moveInterval;
 const duck = document.getElementById("duck");
 
 function moveDuck() {
-  const x = Math.random() * 350;
-  const y = Math.random() * 350;
+  const duckWidth = duck.offsetWidth;
+  const duckHeight = duck.offsetHeight;
+  const gameWidth = 400;
+  const gameHeight = 400;
+
+  const x = Math.random() * (gameWidth - duckWidth);
+  const y = Math.random() * (gameHeight - duckHeight);
 
   duck.style.left = x + "px";
   duck.style.top = y + "px";
@@ -86,7 +91,8 @@ function startGame() {
 
   moveDuck();
 
-  moveInterval = setInterval(moveDuck, 700);
+  // Déplacement plus lent du canard
+  moveInterval = setInterval(moveDuck, 1200); // 1200 ms au lieu de 700 ms
 
   gameInterval = setInterval(() => {
     timeLeft--;
